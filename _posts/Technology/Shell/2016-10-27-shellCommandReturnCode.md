@@ -74,12 +74,14 @@ else
 fi
 
 命令执行成功，返回值为0
+
 [root@adf-cr bin]# ps -p 871 | grep -v PID
   871 ?        00:00:00 cr-wrapper
 [root@adf-cr bin]# echo $?
 0
 
 命令执行失败，返回值为1
+
 [root@adf-cr bin]# ps -p 32643 | grep -v PID > /dev/null
 [root@adf-cr bin]# echo $?
 1
