@@ -11,6 +11,22 @@
 5. 修改`_config.yml`配置项
 6. It's done!
 
+### 注意事项
+1. 每篇博客的最开始加入以下格式控制
+---
+
+layout: post
+title: Shell中if条件判断的一些问题
+category: 技术
+tags: Shell
+keywords: shell 条件判断
+
+---
+category：分类，会在博客最左边栏显示；
+tags：标签，在最左侧标签栏中根据tags属性分类；
+
+2. 博客的标题格式按yyyy-mm-dd-title的格式写
+
 ### 分支说明
 
 - 三栏布局（master分支）
