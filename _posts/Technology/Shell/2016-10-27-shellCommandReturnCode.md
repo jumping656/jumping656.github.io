@@ -1,7 +1,7 @@
 ---
 
 layout: post
-title: Shell中if[]条件判断的一些问题
+title: Shell中if条件判断的一些问题
 category: 技术
 tags: Shell
 keywords: shell 条件判断
