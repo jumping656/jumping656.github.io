@@ -26,31 +26,31 @@ keywords: shell 条件判断
 首先，shell中if判断成立的条件是exit code 是0， 否则都会执行then后面的语句。所以我们如果有一个函数，函数中会return一个状态值，那么怎么去准确的判断函数返回值呢？
 先看下面一段程序：
 
-` \#!/bin/bash `
-
-`APACHE_NAME=httpd`
-
-`isApacheRunning(){ `
-
-    `` PROC=`/usr/bin/pgrep -x "$APACHE_NAME"` ``
-    if [ -z "$PROC" ] ; then
-        return 1 #false
-
-    else
-        return 0 #true
+    \#!/bin/bash
+    
+    APACHE_NAME=httpd
+    
+    isApacheRunning(){ 
+    
+        PROC=`/usr/bin/pgrep -x "$APACHE_NAME"`
+        if [ -z "$PROC" ] ; then
+            return 1 #false
+    
+        else
+            return 0 #true
+        fi
+    }
+    
+    hello(){
+    if isApacheRunning
+    then
+      echo "$APACHE_NAME already running"
     fi
-}
-
-`hello(){`
-`if isApacheRunning`
-`then`
-`  echo "$APACHE_NAME already running"`
-`fi`
-`}`
-
-`echo "start"`
-`hello`
-`echo "end"`
+    }
+    
+    echo "start"
+    hello
+    echo "end"
 
 在isApacheRunning里，判断httpd进程存在，return 0表示true,return 1表示false。在if isApacheRunning判断中，当isApacheRunning返回值是0是，执行then后面的语句。
 所以，在shell中，用0表示true,1表示false。
@@ -67,24 +67,25 @@ stackoverflow上有两篇详细的讲解了这一点：
 if COMMANDS;then COMMANDS这种形式是我们最常遇到的判断语句，其中COMMANDS既可以代表函数调用，又可以代表可执行命令，上面讲到了函数调用，下面例子是执行命令。
 
 例如：
-if ps -p ${pid} |grep -v PID > /dev/null; then
-    apacheRet=0 #执行成功返回值是0
-else
-    apacheRet=1
-fi
+
+    if ps -p ${pid} |grep -v PID > /dev/null; then
+        apacheRet=0 #执行成功返回值是0
+    else
+        apacheRet=1
+    fi
 
 命令执行成功，返回值为0
 
-[root@adf-cr bin]# ps -p 871 | grep -v PID
-  871 ?        00:00:00 cr-wrapper
-[root@adf-cr bin]# echo $?
-0
+    [root@adf-cr bin]# ps -p 871 | grep -v PID
+      871 ?        00:00:00 cr-wrapper
+    [root@adf-cr bin]# echo $?
+    0
 
 命令执行失败，返回值为1
-
-[root@adf-cr bin]# ps -p 32643 | grep -v PID > /dev/null
-[root@adf-cr bin]# echo $?
-1
+    
+    [root@adf-cr bin]# ps -p 32643 | grep -v PID > /dev/null
+    [root@adf-cr bin]# echo $?
+    1
 
 ## 总结
 
